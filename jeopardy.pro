@@ -2,9 +2,11 @@
 # Project created by QtCreator 2011-11-20T15:01:54
 # -------------------------------------------------
 QT += xml \
-    xmlpatterns \
-    phonon
-CONFIG += qtestlib
+      multimedia \
+      widgets \
+      core \
+      multimediawidgets \
+      testlib
 TARGET = jeopardy
 TEMPLATE = app
 SOURCES += main.cpp \
@@ -23,3 +25,5 @@ HEADERS += jeopardy.h \
     podium.h \
     doublejeopardy.h
 FORMS += answer.ui
+QMAKE_CXXFLAGS += -std=c++11
+RESOURCES = jeopardy.qrc

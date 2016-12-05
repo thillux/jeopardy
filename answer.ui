@@ -244,7 +244,7 @@
     <cursorShape>WhatsThisCursor</cursorShape>
    </property>
   </widget>
-  <widget class="Phonon::VideoPlayer" name="videoPlayer">
+  <widget class="QVideoWidget" name="videoPlayer">
    <property name="geometry">
     <rect>
      <x>9</x>
@@ -279,13 +279,6 @@
    </property>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>Phonon::VideoPlayer</class>
-   <extends>QWidget</extends>
-   <header location="global">phonon/videoplayer.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

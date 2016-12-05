@@ -251,7 +251,7 @@ bool Jeopardy::initPlayers()
         if(!ok)
             break;
 
-        this->players[this->playerNr].setKey(key.at(0).toAscii());
+        this->players[this->playerNr].setKey(key.at(0).unicode());
         keyList.removeOne(key);
 
         color = QInputDialog::getItem(this, "Choose color ", "Color:", colorList, 0, false, &ok);

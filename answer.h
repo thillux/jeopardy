@@ -37,7 +37,7 @@
 #include <QTimer>
 #include <QTime>
 #include <QGraphicsScene>
-#include <phonon/mediaobject.h>
+#include <QMediaPlayer>
 #include <doublejeopardy.h>
 
 #define NUMBER_MAX_PLAYERS 9
@@ -85,7 +85,8 @@ private:
     QTimer *timer;
     Player *players;
     Player currentPlayer;
-    Phonon::MediaObject *music;
+    QMediaPlayer *music;
+    QMediaPlayer *video;
     DoubleJeopardy *dj;
 
     void keyPressEvent(QKeyEvent *event);

@@ -26,7 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <QtGui/QApplication>
+#include <QApplication>
 #include "jeopardy.h"
 
 int main(int argc, char *argv[])

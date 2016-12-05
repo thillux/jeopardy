@@ -58,8 +58,12 @@ Answer::Answer(QWidget *parent, QString file, int round, Player *players, int pl
     ui->graphicsView->setVisible(false);
     ui->videoPlayer->setVisible(false);
 
-    if(sound)
-        this->music = Phonon::createPlayer(Phonon::NoCategory, Phonon::MediaSource("sound/jeopardy.wav"));
+    this->music = new QMediaPlayer;
+    video = new QMediaPlayer;
+
+    if(sound) {
+        this->music->setMedia(QUrl("qrc:/sound/jeopardy.mp3"));
+    }
 
     this->isVideo = false;
 }
@@ -67,8 +71,8 @@ Answer::Answer(QWidget *parent, QString file, int round, Player *players, int pl
 Answer::~Answer()
 {
     delete ui;
-    if(this->sound)
-        delete this->music;
+    delete this->music;
+    delete this->video;
 
     if(this->dj != NULL)
         delete this->dj;
@@ -207,7 +211,7 @@ void Answer::processSound(QString *answer)
     this->prependDir(answer);
 
     this->sound = true;
-    this->music = Phonon::createPlayer(Phonon::NoCategory, Phonon::MediaSource(*answer));
+    this->music->setMedia(QUrl::fromLocalFile(*answer));
     this->music->play();
     QTimer::singleShot(30000, this->music, SLOT(stop()));
 }
@@ -218,8 +222,10 @@ void Answer::processVideo(QString *answer)
     this->prependDir(answer);
 
     ui->videoPlayer->setVisible(true);
-    ui->videoPlayer->play(*answer);
-    QTimer::singleShot(30000, ui->videoPlayer, SLOT(stop()));
+    video->setVideoOutput(ui->videoPlayer);
+    video->setMedia(QUrl::fromLocalFile(*answer));
+    video->play();
+    QTimer::singleShot(30000, video, SLOT(stop()));
 }
 
 void Answer::processText(QString *answer)
@@ -244,8 +250,8 @@ void Answer::keyPressEvent(QKeyEvent *event)
     {
         if(this->isVideo == true)
         {
-            ui->videoPlayer->stop();
-            ui->videoPlayer->seek(0);
+            video->stop();
+            video->setPosition(0);
             QTimer::singleShot(100, ui->videoPlayer, SLOT(play()));
             QTimer::singleShot(30000, ui->videoPlayer, SLOT(stop()));
         }

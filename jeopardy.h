@@ -35,6 +35,7 @@
 #include <QKeyEvent>
 #include <QWidget>
 #include <QMediaPlayer>
+#include <QStackedWidget>
 #include <gamefield.h>
 #include <player.h>
 
@@ -50,7 +51,7 @@ namespace Ui {
 class Jeopardy : public QMainWindow {
     Q_OBJECT
 public:
-    Jeopardy(QWidget *parent = NULL);
+    Jeopardy(bool needSound, bool fullscreen, QWidget *parent = NULL);
     ~Jeopardy();
     void init();
 
@@ -63,24 +64,22 @@ private:
     int categoryNr;
     int round;
     bool sound;
+    bool fullscreen;
     bool defaultSetttings;
     QString fileString;
+    QStackedWidget* widgetStack;
     QWidget *window;
     QGridLayout *grid;
     QPushButton *buttons[NUMBER_ROUNDS];
     Player *players;
-    QMediaPlayer *music;
     GameField *gameField;
 
     void initMenu();
     void prepareButton(int i);
-    void setSound();
     int getRound();
     void setCategoryNr();
     bool initPlayers();
     void startRound(int round);
-
-    void deleteSound();
 
 private slots:
     void initGameField();

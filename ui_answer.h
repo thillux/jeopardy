@@ -15,120 +15,163 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <qvideowidget.h>
+#include <QtWidgets/QVBoxLayout>
+#include "qvideowidget.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_Answer
 {
 public:
-    QPushButton *buttonRight;
-    QPushButton *buttonEnd;
-    QPushButton *buttonWrong;
-    QLabel *answer;
-    QLabel *currentPlayer;
-    QPushButton *buttonCancel;
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
     QGraphicsView *graphicsView;
+    QLabel *answer;
     QVideoWidget *videoPlayer;
+    QGridLayout *gridLayout;
     QLabel *time;
+    QLabel *currentPlayer;
+    QPushButton *buttonEnd;
+    QPushButton *buttonRight;
+    QPushButton *buttonWrong;
+    QPushButton *buttonCancel;
 
     void setupUi(QDialog *Answer)
     {
         if (Answer->objectName().isEmpty())
             Answer->setObjectName(QStringLiteral("Answer"));
         Answer->resize(998, 615);
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Answer->sizePolicy().hasHeightForWidth());
         Answer->setSizePolicy(sizePolicy);
         Answer->setMinimumSize(QSize(998, 615));
-        Answer->setMaximumSize(QSize(998, 615));
         Answer->setCursor(QCursor(Qt::WhatsThisCursor));
         Answer->setContextMenuPolicy(Qt::NoContextMenu);
         QIcon icon;
         icon.addFile(QStringLiteral("Initialize"), QSize(), QIcon::Normal, QIcon::Off);
         Answer->setWindowIcon(icon);
-        buttonRight = new QPushButton(Answer);
-        buttonRight->setObjectName(QStringLiteral("buttonRight"));
-        buttonRight->setGeometry(QRect(690, 570, 85, 32));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(buttonRight->sizePolicy().hasHeightForWidth());
-        buttonRight->setSizePolicy(sizePolicy1);
-        QFont font;
-        font.setFamily(QStringLiteral("Andale Mono"));
-        font.setPointSize(14);
-        font.setBold(false);
-        font.setWeight(50);
-        buttonRight->setFont(font);
-        buttonRight->setCursor(QCursor(Qt::WhatsThisCursor));
-        buttonEnd = new QPushButton(Answer);
-        buttonEnd->setObjectName(QStringLiteral("buttonEnd"));
-        buttonEnd->setGeometry(QRect(10, 570, 85, 32));
-        sizePolicy1.setHeightForWidth(buttonEnd->sizePolicy().hasHeightForWidth());
-        buttonEnd->setSizePolicy(sizePolicy1);
-        buttonEnd->setFont(font);
-        buttonEnd->setCursor(QCursor(Qt::WhatsThisCursor));
-        buttonWrong = new QPushButton(Answer);
-        buttonWrong->setObjectName(QStringLiteral("buttonWrong"));
-        buttonWrong->setGeometry(QRect(800, 570, 85, 32));
-        sizePolicy1.setHeightForWidth(buttonWrong->sizePolicy().hasHeightForWidth());
-        buttonWrong->setSizePolicy(sizePolicy1);
-        buttonWrong->setFont(font);
-        buttonWrong->setCursor(QCursor(Qt::WhatsThisCursor));
+        verticalLayout_2 = new QVBoxLayout(Answer);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        graphicsView = new QGraphicsView(Answer);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::WhatsThisCursor)));
+
+        verticalLayout->addWidget(graphicsView);
+
         answer = new QLabel(Answer);
         answer->setObjectName(QStringLiteral("answer"));
-        answer->setGeometry(QRect(9, 9, 981, 521));
-        sizePolicy1.setHeightForWidth(answer->sizePolicy().hasHeightForWidth());
-        answer->setSizePolicy(sizePolicy1);
-        QFont font1;
-        font1.setFamily(QStringLiteral("Andale Mono"));
-        font1.setPointSize(28);
-        font1.setBold(false);
-        font1.setWeight(50);
-        answer->setFont(font1);
+        sizePolicy.setHeightForWidth(answer->sizePolicy().hasHeightForWidth());
+        answer->setSizePolicy(sizePolicy);
+        QFont font;
+        font.setFamily(QStringLiteral("Andale Mono"));
+        font.setPointSize(28);
+        font.setBold(false);
+        font.setWeight(50);
+        answer->setFont(font);
         answer->setCursor(QCursor(Qt::WhatsThisCursor));
         answer->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         answer->setTextFormat(Qt::RichText);
         answer->setScaledContents(false);
         answer->setAlignment(Qt::AlignCenter);
         answer->setWordWrap(true);
+
+        verticalLayout->addWidget(answer);
+
+        videoPlayer = new QVideoWidget(Answer);
+        videoPlayer->setObjectName(QStringLiteral("videoPlayer"));
+        videoPlayer->setCursor(QCursor(Qt::WhatsThisCursor));
+        videoPlayer->setStyleSheet(QStringLiteral(""));
+
+        verticalLayout->addWidget(videoPlayer);
+
+
+        verticalLayout_2->addLayout(verticalLayout);
+
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(0);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        time = new QLabel(Answer);
+        time->setObjectName(QStringLiteral("time"));
+        QFont font1;
+        font1.setPointSize(14);
+        time->setFont(font1);
+
+        gridLayout->addWidget(time, 0, 0, 1, 1);
+
         currentPlayer = new QLabel(Answer);
         currentPlayer->setObjectName(QStringLiteral("currentPlayer"));
-        currentPlayer->setGeometry(QRect(740, 530, 208, 31));
         QFont font2;
         font2.setFamily(QStringLiteral("Andale Mono"));
         font2.setPointSize(20);
         currentPlayer->setFont(font2);
         currentPlayer->setCursor(QCursor(Qt::WhatsThisCursor));
         currentPlayer->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(currentPlayer, 0, 1, 1, 2);
+
+        buttonEnd = new QPushButton(Answer);
+        buttonEnd->setObjectName(QStringLiteral("buttonEnd"));
+        sizePolicy.setHeightForWidth(buttonEnd->sizePolicy().hasHeightForWidth());
+        buttonEnd->setSizePolicy(sizePolicy);
+        QFont font3;
+        font3.setFamily(QStringLiteral("Andale Mono"));
+        font3.setPointSize(14);
+        font3.setBold(false);
+        font3.setWeight(50);
+        buttonEnd->setFont(font3);
+        buttonEnd->setCursor(QCursor(Qt::WhatsThisCursor));
+
+        gridLayout->addWidget(buttonEnd, 1, 0, 1, 1);
+
+        buttonRight = new QPushButton(Answer);
+        buttonRight->setObjectName(QStringLiteral("buttonRight"));
+        sizePolicy.setHeightForWidth(buttonRight->sizePolicy().hasHeightForWidth());
+        buttonRight->setSizePolicy(sizePolicy);
+        buttonRight->setFont(font3);
+        buttonRight->setCursor(QCursor(Qt::WhatsThisCursor));
+
+        gridLayout->addWidget(buttonRight, 1, 1, 1, 1);
+
+        buttonWrong = new QPushButton(Answer);
+        buttonWrong->setObjectName(QStringLiteral("buttonWrong"));
+        sizePolicy.setHeightForWidth(buttonWrong->sizePolicy().hasHeightForWidth());
+        buttonWrong->setSizePolicy(sizePolicy);
+        buttonWrong->setFont(font3);
+        buttonWrong->setCursor(QCursor(Qt::WhatsThisCursor));
+
+        gridLayout->addWidget(buttonWrong, 1, 2, 1, 1);
+
         buttonCancel = new QPushButton(Answer);
         buttonCancel->setObjectName(QStringLiteral("buttonCancel"));
-        buttonCancel->setGeometry(QRect(910, 570, 85, 32));
-        sizePolicy1.setHeightForWidth(buttonCancel->sizePolicy().hasHeightForWidth());
-        buttonCancel->setSizePolicy(sizePolicy1);
-        buttonCancel->setFont(font);
+        sizePolicy.setHeightForWidth(buttonCancel->sizePolicy().hasHeightForWidth());
+        buttonCancel->setSizePolicy(sizePolicy);
+        buttonCancel->setFont(font3);
         buttonCancel->setCursor(QCursor(Qt::WhatsThisCursor));
-        graphicsView = new QGraphicsView(Answer);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(1, 1, 997, 531));
-        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::WhatsThisCursor)));
-        videoPlayer = new QVideoWidget(Answer);
-        videoPlayer->setObjectName(QStringLiteral("videoPlayer"));
-        videoPlayer->setGeometry(QRect(9, 9, 981, 511));
-        videoPlayer->setCursor(QCursor(Qt::WhatsThisCursor));
-        videoPlayer->setStyleSheet(QStringLiteral(""));
-        time = new QLabel(Answer);
-        time->setObjectName(QStringLiteral("time"));
-        time->setGeometry(QRect(20, 540, 221, 16));
-        QFont font3;
-        font3.setPointSize(14);
-        time->setFont(font3);
+
+        gridLayout->addWidget(buttonCancel, 1, 3, 1, 1);
+
+        gridLayout->setColumnStretch(0, 2);
+        gridLayout->setColumnStretch(1, 1);
+        gridLayout->setColumnStretch(2, 1);
+        gridLayout->setColumnStretch(3, 1);
+        gridLayout->setColumnMinimumWidth(0, 1);
+        gridLayout->setColumnMinimumWidth(1, 1);
+        gridLayout->setColumnMinimumWidth(2, 1);
+        gridLayout->setColumnMinimumWidth(3, 1);
+        gridLayout->setRowMinimumHeight(0, 1);
+        gridLayout->setRowMinimumHeight(1, 1);
+
+        verticalLayout_2->addLayout(gridLayout);
+
+        verticalLayout_2->setStretch(0, 2);
 
         retranslateUi(Answer);
 
@@ -138,13 +181,13 @@ public:
     void retranslateUi(QDialog *Answer)
     {
         Answer->setWindowTitle(QApplication::translate("Answer", "Jeopardy", 0));
-        buttonRight->setText(QApplication::translate("Answer", "Right", 0));
-        buttonEnd->setText(QApplication::translate("Answer", "End", 0));
-        buttonWrong->setText(QApplication::translate("Answer", "Wrong", 0));
         answer->setText(QApplication::translate("Answer", "listen...", 0));
-        currentPlayer->setText(QApplication::translate("Answer", "currentPlayer", 0));
-        buttonCancel->setText(QApplication::translate("Answer", "Cancel", 0));
         time->setText(QString());
+        currentPlayer->setText(QApplication::translate("Answer", "currentPlayer", 0));
+        buttonEnd->setText(QApplication::translate("Answer", "End", 0));
+        buttonRight->setText(QApplication::translate("Answer", "Right", 0));
+        buttonWrong->setText(QApplication::translate("Answer", "Wrong", 0));
+        buttonCancel->setText(QApplication::translate("Answer", "Cancel", 0));
     } // retranslateUi
 
 };

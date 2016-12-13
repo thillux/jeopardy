@@ -46,6 +46,7 @@
 #include <QShortcut>
 #include <QDateTime>
 #include <QGridLayout>
+#include <QStackedWidget>
 #include <editor.h>
 #include <podium.h>
 #include <answer.h>
@@ -73,7 +74,7 @@
 class GameField : public QDialog {
     Q_OBJECT
 public:
-    GameField(QWidget *parent = NULL, int round = 0, int categoryNr = 0, Player *players = NULL, int playerNr = 0, bool sound = true, QString filesString = "");
+    GameField(QWidget *parent = NULL, QStackedWidget* widgetStack = NULL, int round = 0, int categoryNr = 0, Player *players = NULL, int playerNr = 0, bool sound = true, QString filesString = "", bool fullscreen = false);
     ~GameField();
     void init();
 
@@ -89,6 +90,8 @@ private:
     int categoryNr;
     int currentPlayer;
     bool sound;
+    bool fullscreen;
+    QStackedWidget* widgetStack;
     Player *players;
     Editor *editor;
     Answer *answer;

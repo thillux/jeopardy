@@ -27,15 +27,33 @@
  */
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include "jeopardy.h"
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    a.setWindowIcon(QIcon("images/icon.svg"));
-    Jeopardy w;
-    w.init();
-    return a.exec();
+int main(int argc, char *argv[]) {
+    QApplication jeopardyApp(argc, argv);
+
+    jeopardyApp.setApplicationDisplayName("Jeopardy");
+    jeopardyApp.setApplicationVersion("0.1");
+    jeopardyApp.setWindowIcon(QIcon(":/images/icon.svg"));
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription("Jeopardy Game");
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    QCommandLineOption noSoundOption("no-sound");
+    parser.addOption(noSoundOption);
+
+    QCommandLineOption fullscreen("fullscreen");
+    parser.addOption(fullscreen);
+
+    parser.process(jeopardyApp);
+
+    Jeopardy jeopardyWindow(!parser.isSet(noSoundOption), parser.isSet(fullscreen));
+    jeopardyWindow.init();
+
+    return jeopardyApp.exec();
 }
 
 

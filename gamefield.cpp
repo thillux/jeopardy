@@ -28,15 +28,19 @@
 
 #include "gamefield.h"
 
-GameField::GameField(QWidget *parent, int round, int categoryNr, Player *players, int playerNr, bool sound, QString fileString) :
+GameField::GameField(QWidget *parent, QStackedWidget* widgetStack, int round, int categoryNr, Player *players, int playerNr, bool sound, QString fileString, bool fullscreen) :
     QDialog(parent), round(round), alreadyAnswered(0), lastWinner(NO_WINNER),
-    lastPoints(0), playerNr(playerNr), categoryNr(categoryNr), sound(sound), players(players), answer(), podium(NULL),
+    lastPoints(0), playerNr(playerNr), categoryNr(categoryNr), sound(sound), fullscreen(fullscreen), widgetStack(widgetStack), players(players), answer(), podium(NULL),
     randomCtx(NULL), editorCtx(NULL), loadCtx(NULL), saveCtx(NULL), endRoundCtx(NULL), about(NULL), fileString(fileString)
 {
 }
 
 GameField::~GameField()
 {
+    if(this->widgetStack != NULL) {
+        this->widgetStack->removeWidget(this->window);
+    }
+
     if(this->randomCtx != NULL)
         delete this->randomCtx;
     if(this->editorCtx != NULL)
@@ -87,7 +91,12 @@ void GameField::init()
     this->window->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this->window, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(on_gameField_customContextMenuRequested(QPoint)));
 
-    this->window->show();
+    if(fullscreen) {
+        this->widgetStack->addWidget(this->window);
+        this->widgetStack->setCurrentWidget(this->window);
+    } else {
+        this->window->show();
+    }
 
     this->currentPlayer = this->random();
     this->updateCurrentPlayerLabel();
@@ -416,7 +425,7 @@ QString GameField::getButtonColorByLastWinner()
 
 void GameField::openAnswer(int category, int points)
 {
-    this->answer = new Answer(this, this->fileString, this->round, this->players, this->playerNr, this->sound, this->currentPlayer);
+    this->answer = new Answer(this, this->widgetStack, this->fileString, this->round, this->players, this->playerNr, this->sound, this->currentPlayer, this->fullscreen);
     this->answer->setAnswer(category, points);
 
     this->answer->exec();

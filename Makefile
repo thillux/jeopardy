@@ -952,6 +952,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_jeopardy.cpp
 qrc_jeopardy.cpp: jeopardy.qrc \
 		/usr/bin/rcc \
+		images/icon.svg \
 		sound/jeopardy.mp3
 	/usr/bin/rcc -name jeopardy jeopardy.qrc -o qrc_jeopardy.cpp
 

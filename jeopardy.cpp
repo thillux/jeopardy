@@ -29,9 +29,12 @@
 #include "jeopardy.h"
 #include "ui_jeopardy.h"
 
-Jeopardy::Jeopardy(QWidget *parent) :
+Jeopardy::Jeopardy(bool needSound, bool fullscreen, QWidget *parent) :
     QMainWindow(parent),
-    sound(false), gameField(NULL)
+    sound(needSound),
+    fullscreen(fullscreen),
+    widgetStack(NULL),
+    gameField(NULL)
 {
 
     this->players = new Player[NUMBER_MAX_PLAYERS];
@@ -39,13 +42,25 @@ Jeopardy::Jeopardy(QWidget *parent) :
 
 Jeopardy::~Jeopardy()
 {
-    if(this->players != NULL)
+    if(this->players != NULL) {
         delete [] this->players;
+        this->players = NULL;
+    }
 
     if(this->gameField != NULL)
     {
         delete this->gameField;
         this->gameField = NULL;
+    }
+
+    if(this->window != NULL) {
+        delete this->window;
+        this->window = NULL;
+    }
+
+    if(this->widgetStack != NULL) {
+        delete this->widgetStack;
+        this->widgetStack = NULL;
     }
 }
 
@@ -67,6 +82,9 @@ void Jeopardy::init()
 
 void Jeopardy::initMenu()
 {
+    if(fullscreen) {
+        this->widgetStack = new QStackedWidget();
+    }
     this->window = new QWidget();
     this->grid = new QGridLayout();
 
@@ -74,7 +92,12 @@ void Jeopardy::initMenu()
         this->prepareButton(i);
 
     this->window->setLayout(this->grid);
-    this->window->show();
+    if(fullscreen) {
+        this->widgetStack->addWidget(window);
+        this->widgetStack->showFullScreen();
+    } else {
+        this->window->show();
+    }
 }
 
 void Jeopardy::prepareButton(int i)
@@ -95,25 +118,13 @@ void Jeopardy::initGameField()
     bool complete;
 
     this->round = this->getRound();
-    this->setSound();
-
-    /*
-    if(this->sound)
-    {
-        this->music = Phonon::createPlayer(Phonon::NoCategory, Phonon::MediaSource("sound/title.ogg"));
-        this->music->play();
-    }
-    */
 
     complete = this->initPlayers();
 
     if(NOT == complete)
     {
-        //this->deleteSound();
         return;
     }
-
-    //this->deleteSound();
 
     this->setCategoryNr();
 
@@ -139,20 +150,6 @@ int Jeopardy::getRound()
    }
 
    return this->round;
-}
-
-void Jeopardy::setSound()
-{
-    QMessageBox msgBox;
-    msgBox.setText("Do you need sound?");
-    msgBox.setWindowTitle("Sound");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Yes);
-
-    if(msgBox.exec() == QMessageBox::Yes)
-        this->sound = true;
-    else
-        this->sound = false;
 }
 
 void Jeopardy::setCategoryNr()
@@ -269,15 +266,6 @@ bool Jeopardy::initPlayers()
 
 void Jeopardy::startRound(int round)
 {
-    this->gameField = new GameField(this, round, this->categoryNr, this->players, this->playerNr, this->sound, this->fileString);
+    this->gameField = new GameField(this, this->widgetStack, round, this->categoryNr, this->players, this->playerNr, this->sound, this->fileString, this->fullscreen);
     this->gameField->init();
-}
-
-void Jeopardy::deleteSound()
-{
-    if(this->sound)
-    {
-        this->music->stop();
-        delete this->music;
-    }
 }

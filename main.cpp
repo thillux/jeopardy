@@ -28,6 +28,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QGamepad>
 #include "jeopardy.h"
 
 int main(int argc, char *argv[]) {

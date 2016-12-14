@@ -36,7 +36,6 @@ Jeopardy::Jeopardy(bool needSound, bool fullscreen, QWidget *parent) :
     widgetStack(NULL),
     gameField(NULL)
 {
-
     this->players = new Player[NUMBER_MAX_PLAYERS];
 }
 

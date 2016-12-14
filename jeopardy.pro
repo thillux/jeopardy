@@ -17,14 +17,16 @@ SOURCES += main.cpp \
     answer.cpp \
     editor.cpp \
     podium.cpp \
-    doublejeopardy.cpp
+    doublejeopardy.cpp \
+    Gamepadmonitor.cpp
 HEADERS += jeopardy.h \
     player.h \
     gamefield.h \
     answer.h \
     editor.h \
     podium.h \
-    doublejeopardy.h
+    doublejeopardy.h \
+    Gamepadmonitor.hpp
 FORMS += answer.ui
 QMAKE_CXXFLAGS += -std=c++11
 RESOURCES = jeopardy.qrc

@@ -55,13 +55,15 @@ SOURCES       = main.cpp \
 		answer.cpp \
 		editor.cpp \
 		podium.cpp \
-		doublejeopardy.cpp qrc_jeopardy.cpp \
+		doublejeopardy.cpp \
+		Gamepadmonitor.cpp qrc_jeopardy.cpp \
 		moc_jeopardy.cpp \
 		moc_gamefield.cpp \
 		moc_answer.cpp \
 		moc_editor.cpp \
 		moc_podium.cpp \
-		moc_doublejeopardy.cpp
+		moc_doublejeopardy.cpp \
+		moc_Gamepadmonitor.cpp
 OBJECTS       = main.o \
 		jeopardy.o \
 		player.o \
@@ -70,13 +72,15 @@ OBJECTS       = main.o \
 		editor.o \
 		podium.o \
 		doublejeopardy.o \
+		Gamepadmonitor.o \
 		qrc_jeopardy.o \
 		moc_jeopardy.o \
 		moc_gamefield.o \
 		moc_answer.o \
 		moc_editor.o \
 		moc_podium.o \
-		moc_doublejeopardy.o
+		moc_doublejeopardy.o \
+		moc_Gamepadmonitor.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -346,14 +350,16 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		answer.h \
 		editor.h \
 		podium.h \
-		doublejeopardy.h main.cpp \
+		doublejeopardy.h \
+		Gamepadmonitor.hpp main.cpp \
 		jeopardy.cpp \
 		player.cpp \
 		gamefield.cpp \
 		answer.cpp \
 		editor.cpp \
 		podium.cpp \
-		doublejeopardy.cpp
+		doublejeopardy.cpp \
+		Gamepadmonitor.cpp
 QMAKE_TARGET  = jeopardy
 DESTDIR       = 
 TARGET        = jeopardy
@@ -929,8 +935,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents jeopardy.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents jeopardy.h player.h gamefield.h answer.h editor.h podium.h doublejeopardy.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp jeopardy.cpp player.cpp gamefield.cpp answer.cpp editor.cpp podium.cpp doublejeopardy.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents jeopardy.h player.h gamefield.h answer.h editor.h podium.h doublejeopardy.h Gamepadmonitor.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp jeopardy.cpp player.cpp gamefield.cpp answer.cpp editor.cpp podium.cpp doublejeopardy.cpp Gamepadmonitor.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents answer.ui $(DISTDIR)/
 
 
@@ -964,9 +970,9 @@ qrc_jeopardy.cpp: jeopardy.qrc \
 		sound/jeopardy.mp3
 	/usr/bin/rcc -name jeopardy jeopardy.qrc -o qrc_jeopardy.cpp
 
-compiler_moc_header_make_all: moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp
+compiler_moc_header_make_all: moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp moc_Gamepadmonitor.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp
+	-$(DEL_FILE) moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp moc_Gamepadmonitor.cpp
 moc_jeopardy.cpp: gamefield.h \
 		editor.h \
 		player.h \
@@ -1006,6 +1012,10 @@ moc_doublejeopardy.cpp: player.h \
 		doublejeopardy.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include doublejeopardy.h -o moc_doublejeopardy.cpp
+
+moc_Gamepadmonitor.cpp: Gamepadmonitor.hpp \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include Gamepadmonitor.hpp -o moc_Gamepadmonitor.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1077,6 +1087,9 @@ doublejeopardy.o: doublejeopardy.cpp doublejeopardy.h \
 		ui_doublejeopardy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o doublejeopardy.o doublejeopardy.cpp
 
+Gamepadmonitor.o: Gamepadmonitor.cpp Gamepadmonitor.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gamepadmonitor.o Gamepadmonitor.cpp
+
 qrc_jeopardy.o: qrc_jeopardy.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_jeopardy.o qrc_jeopardy.cpp
 
@@ -1097,6 +1110,9 @@ moc_podium.o: moc_podium.cpp
 
 moc_doublejeopardy.o: moc_doublejeopardy.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_doublejeopardy.o moc_doublejeopardy.cpp
+
+moc_Gamepadmonitor.o: moc_Gamepadmonitor.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Gamepadmonitor.o moc_Gamepadmonitor.cpp
 
 ####### Install
 

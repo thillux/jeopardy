@@ -6,7 +6,8 @@ QT += xml \
       widgets \
       core \
       multimediawidgets \
-      testlib
+      testlib \
+      gamepad
 TARGET = jeopardy
 TEMPLATE = app
 SOURCES += main.cpp \

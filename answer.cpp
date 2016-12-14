@@ -43,8 +43,7 @@ void Answer::changeEvent(QEvent *e)
 
 Answer::Answer(QWidget *parent, QStackedWidget* widgetStack, QString file, int round, Player *players, int playerNr, bool sound, int currentPlayerId, bool fullscreen) :
         QDialog(parent), ui(new Ui::Answer), round(round), playerNr(playerNr),points(0), currentPlayerId(currentPlayerId),
-        winner(NO_WINNER), keyLock(false), sound(sound), doubleJeopardy(false), fullscreen(fullscreen), widgetStack(widgetStack), result(), fileString(file), players(players), currentPlayer(), dj(NULL),
-        _gamepadMonitor(new Gamepadmonitor(this))
+        winner(NO_WINNER), keyLock(false), sound(sound), doubleJeopardy(false), fullscreen(fullscreen), widgetStack(widgetStack), result(), fileString(file), players(players), currentPlayer(), dj(NULL)
 {
     ui->setupUi(this);
 

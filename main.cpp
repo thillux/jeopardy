@@ -28,7 +28,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QGamepad>
+#include "Gamepadmonitor.hpp"
 #include "jeopardy.h"
 
 int main(int argc, char *argv[]) {
@@ -50,6 +50,8 @@ int main(int argc, char *argv[]) {
     parser.addOption(fullscreen);
 
     parser.process(jeopardyApp);
+
+    Gamepadmonitor gmMonitor;
 
     Jeopardy jeopardyWindow(!parser.isSet(noSoundOption), parser.isSet(fullscreen));
     jeopardyWindow.init();

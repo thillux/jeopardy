@@ -40,7 +40,6 @@
 #include <QMediaPlayer>
 #include <doublejeopardy.h>
 #include <QStackedWidget>
-#include "Gamepadmonitor.hpp"
 
 #define NUMBER_MAX_PLAYERS 9
 #define NUMBER_MAX_CATEGORIES 6
@@ -92,7 +91,6 @@ private:
     QMediaPlayer *music;
     QMediaPlayer *video;
     DoubleJeopardy *dj;
-    GamepadmonitorPtr _gamepadMonitor;
 
     void keyPressEvent(QKeyEvent *event);
     void processKeypress(int player);

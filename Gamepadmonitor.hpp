@@ -10,10 +10,9 @@ class Gamepadmonitor : public QObject
 {
     Q_OBJECT
 public:
-    Gamepadmonitor(QWidget *receiver);
+    Gamepadmonitor();
 
 private:
-    QWidget* _receiver;
     QSharedPointer<QGamepad> _gamepad;
 
 signals:

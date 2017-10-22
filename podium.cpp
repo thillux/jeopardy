@@ -29,7 +29,7 @@
 #include "podium.h"
 
 Podium::Podium(QWidget *parent, Player *players, int playerNr) :
-    QDialog(parent), playerNr(playerNr)
+    QDialog(parent), playerNr(playerNr), filename(nullptr)
 {
     this->players = players;
 }
@@ -42,7 +42,8 @@ Podium::~Podium()
     delete this->firstGrid;
     delete this->secondThirdGrid;
     delete this->window;
-    delete this->filename;
+    if(filename != nullptr)
+        delete this->filename;
 }
 
 void Podium::init()

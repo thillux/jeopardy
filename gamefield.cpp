@@ -249,7 +249,7 @@ void GameField::assignButtons()
 void GameField::setDefaultButtonAppearance(int points, int currentButton)
 {
     QFont font;
-    font.setPointSize(20);
+    font.setPointSize(16);
 
     this->buttons[currentButton]->setFont(font);
     this->buttons[currentButton]->setText(QString("%1").arg(points));

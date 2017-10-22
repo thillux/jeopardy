@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'answer.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.9.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -180,14 +180,14 @@ public:
 
     void retranslateUi(QDialog *Answer)
     {
-        Answer->setWindowTitle(QApplication::translate("Answer", "Jeopardy", 0));
-        answer->setText(QApplication::translate("Answer", "listen...", 0));
+        Answer->setWindowTitle(QApplication::translate("Answer", "Jeopardy", Q_NULLPTR));
+        answer->setText(QApplication::translate("Answer", "listen...", Q_NULLPTR));
         time->setText(QString());
-        currentPlayer->setText(QApplication::translate("Answer", "currentPlayer", 0));
-        buttonEnd->setText(QApplication::translate("Answer", "End", 0));
-        buttonRight->setText(QApplication::translate("Answer", "Right", 0));
-        buttonWrong->setText(QApplication::translate("Answer", "Wrong", 0));
-        buttonCancel->setText(QApplication::translate("Answer", "Cancel", 0));
+        currentPlayer->setText(QApplication::translate("Answer", "currentPlayer", Q_NULLPTR));
+        buttonEnd->setText(QApplication::translate("Answer", "End", Q_NULLPTR));
+        buttonRight->setText(QApplication::translate("Answer", "Right", Q_NULLPTR));
+        buttonWrong->setText(QApplication::translate("Answer", "Wrong", Q_NULLPTR));
+        buttonCancel->setText(QApplication::translate("Answer", "Cancel", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -54,10 +54,12 @@ Answer::Answer(QWidget *parent, QStackedWidget* widgetStack, QString file, int r
 
     this->time = new QTime();
     this->time->start();
+    /*
     timer = new QTimer();
     timer->setInterval(1*1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTime()));
     timer->start();
+    */
 
     this->hideButtons();
     ui->graphicsView->setVisible(false);
@@ -83,7 +85,9 @@ Answer::~Answer()
         delete this->dj;
 
     delete this->time;
-    delete timer;
+    if(timer != NULL) {
+        delete timer;
+    }
 }
 
 void Answer::updateTime()
@@ -292,13 +296,13 @@ void Answer::keyPressEvent(QKeyEvent *event)
 
 void Answer::processKeypress(int player)
 {
-    if(this->time->elapsed() < this->time->msec() + 31000)
-    {
+    // if(this->time->elapsed() < this->time->msec() + 31000)
+    // {
         this->currentPlayer = this->players[player];
         ui->currentPlayer->setText(this->currentPlayer.getName());
 
         this->showButtons();
-    }
+    // }
 }
 
 bool Answer::keyListenerIsLocked()

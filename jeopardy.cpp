@@ -229,11 +229,11 @@ bool Jeopardy::initPlayers()
             dialogcode = playerInput.exec();
             text = playerInput.textValue();
 
-            if(text.length() < 10)
+            if(text.length() < 15)
                 break;
 
             QMessageBox msgBox;
-            msgBox.setText("Choose a name shorter than 11 letters");
+            msgBox.setText("Choose a name shorter than 15 letters");
             msgBox.exec();
         }
 

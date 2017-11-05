@@ -6,8 +6,7 @@ QT += xml \
       widgets \
       core \
       multimediawidgets \
-      testlib \
-      gamepad
+      testlib
 TARGET = jeopardy
 TEMPLATE = app
 SOURCES += main.cpp \
@@ -17,16 +16,14 @@ SOURCES += main.cpp \
     answer.cpp \
     editor.cpp \
     podium.cpp \
-    doublejeopardy.cpp \
-    Gamepadmonitor.cpp
+    doublejeopardy.cpp
 HEADERS += jeopardy.h \
     player.h \
     gamefield.h \
     answer.h \
     editor.h \
     podium.h \
-    doublejeopardy.h \
-    Gamepadmonitor.hpp
+    doublejeopardy.h
 FORMS += answer.ui
-QMAKE_CXXFLAGS += -std=c++11
+CONFIG += c++14
 RESOURCES = jeopardy.qrc

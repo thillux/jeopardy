@@ -26,37 +26,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <memory>
+
 #include <QApplication>
 #include <QCommandLineParser>
-#include "Gamepadmonitor.hpp"
+
 #include "jeopardy.h"
 
 int main(int argc, char *argv[]) {
-    QApplication jeopardyApp(argc, argv);
+    auto jeopardyApp = std::make_shared<QApplication>(argc, argv);
 
-    jeopardyApp.setApplicationDisplayName("Jeopardy");
-    jeopardyApp.setApplicationVersion("0.1");
-    jeopardyApp.setWindowIcon(QIcon(":/images/icon.svg"));
+    jeopardyApp->setApplicationDisplayName("Jeopardy");
+    jeopardyApp->setApplicationVersion("0.1");
+    jeopardyApp->setWindowIcon(QIcon(":/images/icon.svg"));
 
-    QCommandLineParser parser;
-    parser.setApplicationDescription("Jeopardy Game");
-    parser.addHelpOption();
-    parser.addVersionOption();
+    auto parser = std::make_shared<QCommandLineParser>();
+    parser->setApplicationDescription("Jeopardy Game");
+    parser->addHelpOption();
+    parser->addVersionOption();
 
     QCommandLineOption noSoundOption("no-sound");
-    parser.addOption(noSoundOption);
+    parser->addOption(noSoundOption);
 
     QCommandLineOption fullscreen("fullscreen");
-    parser.addOption(fullscreen);
+    parser->addOption(fullscreen);
 
-    parser.process(jeopardyApp);
+    parser->process(*jeopardyApp);
 
-    Gamepadmonitor gmMonitor;
+    auto jeopardyWindow = std::make_shared<Jeopardy>(!parser->isSet(noSoundOption), parser->isSet(fullscreen));
+    jeopardyWindow->init();
 
-    Jeopardy jeopardyWindow(!parser.isSet(noSoundOption), parser.isSet(fullscreen));
-    jeopardyWindow.init();
-
-    return jeopardyApp.exec();
+    return jeopardyApp->exec();
 }
 
 

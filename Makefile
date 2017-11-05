@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GAMEPAD_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_TESTLIB_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR='"/home/thillux/Code/jeopardy"'
+DEFINES       = -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_TESTLIB_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR='"/home/thillux/Code/jeopardy"'
 CFLAGS        = -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -std=c++11 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/qt -isystem /usr/include/qt/QtMultimediaWidgets -isystem /usr/include/qt/QtMultimedia -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGamepad -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtXml -isystem /usr/include/qt/QtNetwork -isystem /usr/include/qt/QtTest -isystem /usr/include/qt/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/qt/mkspecs/linux-g++
+CXXFLAGS      = -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -std=gnu++1y -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+INCPATH       = -I. -isystem /usr/include/qt -isystem /usr/include/qt/QtMultimediaWidgets -isystem /usr/include/qt/QtMultimedia -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtXml -isystem /usr/include/qt/QtNetwork -isystem /usr/include/qt/QtTest -isystem /usr/include/qt/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake-qt5
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = jeopardy1.0.0
 DISTDIR = /home/thillux/Code/jeopardy/.tmp/jeopardy1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now -Wl,-rpath-link,/usr/lib
-LIBS          = $(SUBLIBS) -lQt5MultimediaWidgets -lpulse-mainloop-glib -lpulse -lglib-2.0 -lQt5Multimedia -lQt5Widgets -lQt5Gamepad -lQt5Gui -lQt5Xml -lQt5Network -lQt5Test -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -lQt5MultimediaWidgets -lpulse-mainloop-glib -lpulse -lglib-2.0 -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5Xml -lQt5Network -lQt5Test -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -57,15 +57,13 @@ SOURCES       = main.cpp \
 		answer.cpp \
 		editor.cpp \
 		podium.cpp \
-		doublejeopardy.cpp \
-		Gamepadmonitor.cpp qrc_jeopardy.cpp \
+		doublejeopardy.cpp qrc_jeopardy.cpp \
 		moc_jeopardy.cpp \
 		moc_gamefield.cpp \
 		moc_answer.cpp \
 		moc_editor.cpp \
 		moc_podium.cpp \
-		moc_doublejeopardy.cpp \
-		moc_Gamepadmonitor.cpp
+		moc_doublejeopardy.cpp
 OBJECTS       = main.o \
 		jeopardy.o \
 		player.o \
@@ -74,15 +72,13 @@ OBJECTS       = main.o \
 		editor.o \
 		podium.o \
 		doublejeopardy.o \
-		Gamepadmonitor.o \
 		qrc_jeopardy.o \
 		moc_jeopardy.o \
 		moc_gamefield.o \
 		moc_answer.o \
 		moc_editor.o \
 		moc_podium.o \
-		moc_doublejeopardy.o \
-		moc_Gamepadmonitor.o
+		moc_doublejeopardy.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -380,16 +376,14 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		answer.h \
 		editor.h \
 		podium.h \
-		doublejeopardy.h \
-		Gamepadmonitor.hpp main.cpp \
+		doublejeopardy.h main.cpp \
 		jeopardy.cpp \
 		player.cpp \
 		gamefield.cpp \
 		answer.cpp \
 		editor.cpp \
 		podium.cpp \
-		doublejeopardy.cpp \
-		Gamepadmonitor.cpp
+		doublejeopardy.cpp
 QMAKE_TARGET  = jeopardy
 DESTDIR       = 
 TARGET        = jeopardy
@@ -697,7 +691,6 @@ Makefile: jeopardy.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mksp
 		/usr/lib/libQt5MultimediaWidgets.prl \
 		/usr/lib/libQt5Multimedia.prl \
 		/usr/lib/libQt5Widgets.prl \
-		/usr/lib/libQt5Gamepad.prl \
 		/usr/lib/libQt5Gui.prl \
 		/usr/lib/libQt5Xml.prl \
 		/usr/lib/libQt5Network.prl \
@@ -1000,7 +993,6 @@ jeopardy.qrc:
 /usr/lib/libQt5MultimediaWidgets.prl:
 /usr/lib/libQt5Multimedia.prl:
 /usr/lib/libQt5Widgets.prl:
-/usr/lib/libQt5Gamepad.prl:
 /usr/lib/libQt5Gui.prl:
 /usr/lib/libQt5Xml.prl:
 /usr/lib/libQt5Network.prl:
@@ -1022,8 +1014,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents jeopardy.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents jeopardy.h player.h gamefield.h answer.h editor.h podium.h doublejeopardy.h Gamepadmonitor.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp jeopardy.cpp player.cpp gamefield.cpp answer.cpp editor.cpp podium.cpp doublejeopardy.cpp Gamepadmonitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents jeopardy.h player.h gamefield.h answer.h editor.h podium.h doublejeopardy.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp jeopardy.cpp player.cpp gamefield.cpp answer.cpp editor.cpp podium.cpp doublejeopardy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents answer.ui $(DISTDIR)/
 
 
@@ -1061,11 +1053,11 @@ compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
-	g++ -pipe -std=c++11 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
+	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -std=gnu++1y -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp moc_Gamepadmonitor.cpp
+compiler_moc_header_make_all: moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp moc_Gamepadmonitor.cpp
+	-$(DEL_FILE) moc_jeopardy.cpp moc_gamefield.cpp moc_answer.cpp moc_editor.cpp moc_podium.cpp moc_doublejeopardy.cpp
 moc_jeopardy.cpp: gamefield.h \
 		editor.h \
 		player.h \
@@ -1075,7 +1067,7 @@ moc_jeopardy.cpp: gamefield.h \
 		jeopardy.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include jeopardy.h -o moc_jeopardy.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include jeopardy.h -o moc_jeopardy.cpp
 
 moc_gamefield.cpp: editor.h \
 		player.h \
@@ -1085,37 +1077,32 @@ moc_gamefield.cpp: editor.h \
 		gamefield.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include gamefield.h -o moc_gamefield.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include gamefield.h -o moc_gamefield.cpp
 
 moc_answer.cpp: doublejeopardy.h \
 		player.h \
 		answer.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include answer.h -o moc_answer.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include answer.h -o moc_answer.cpp
 
 moc_editor.cpp: player.h \
 		editor.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include editor.h -o moc_editor.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include editor.h -o moc_editor.cpp
 
 moc_podium.cpp: player.h \
 		podium.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include podium.h -o moc_podium.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include podium.h -o moc_podium.cpp
 
 moc_doublejeopardy.cpp: player.h \
 		doublejeopardy.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include doublejeopardy.h -o moc_doublejeopardy.cpp
-
-moc_Gamepadmonitor.cpp: Gamepadmonitor.hpp \
-		moc_predefs.h \
-		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGamepad -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include Gamepadmonitor.hpp -o moc_Gamepadmonitor.cpp
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/thillux/Code/jeopardy -I/usr/include/qt -I/usr/include/qt/QtMultimediaWidgets -I/usr/include/qt/QtMultimedia -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtXml -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtTest -I/usr/include/qt/QtCore -I/usr/include/c++/6.2.1 -I/usr/include/c++/6.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/include-fixed -I/usr/include -I/usr/include/c++/7.2.0 -I/usr/include/c++/7.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed -I/usr/include doublejeopardy.h -o moc_doublejeopardy.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1137,8 +1124,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-main.o: main.cpp Gamepadmonitor.hpp \
-		jeopardy.h \
+main.o: main.cpp jeopardy.h \
 		gamefield.h \
 		editor.h \
 		player.h \
@@ -1188,9 +1174,6 @@ doublejeopardy.o: doublejeopardy.cpp doublejeopardy.h \
 		ui_doublejeopardy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o doublejeopardy.o doublejeopardy.cpp
 
-Gamepadmonitor.o: Gamepadmonitor.cpp Gamepadmonitor.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gamepadmonitor.o Gamepadmonitor.cpp
-
 qrc_jeopardy.o: qrc_jeopardy.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_jeopardy.o qrc_jeopardy.cpp
 
@@ -1211,9 +1194,6 @@ moc_podium.o: moc_podium.cpp
 
 moc_doublejeopardy.o: moc_doublejeopardy.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_doublejeopardy.o moc_doublejeopardy.cpp
-
-moc_Gamepadmonitor.o: moc_Gamepadmonitor.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Gamepadmonitor.o moc_Gamepadmonitor.cpp
 
 ####### Install
 

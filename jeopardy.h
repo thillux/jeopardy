@@ -81,6 +81,7 @@ private:
     bool initPlayers();
     void startRound(int round);
 
+
 private slots:
     void initGameField();
 

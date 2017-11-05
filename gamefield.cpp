@@ -27,33 +27,35 @@
  */
 
 #include "gamefield.h"
+#include "jeopardy.h"
+#include <QApplication>
 
 GameField::GameField(QWidget *parent, QStackedWidget* widgetStack, int round, int categoryNr, Player *players, int playerNr, bool sound, QString fileString, bool fullscreen) :
     QDialog(parent), round(round), alreadyAnswered(0), lastWinner(NO_WINNER),
-    lastPoints(0), playerNr(playerNr), categoryNr(categoryNr), sound(sound), fullscreen(fullscreen), widgetStack(widgetStack), players(players), answer(), podium(NULL),
-    randomCtx(NULL), editorCtx(NULL), loadCtx(NULL), saveCtx(NULL), endRoundCtx(NULL), about(NULL), fileString(fileString)
+    lastPoints(0), playerNr(playerNr), categoryNr(categoryNr), sound(sound), fullscreen(fullscreen), widgetStack(widgetStack), players(players), answer(), podium(nullptr),
+    randomCtx(nullptr), editorCtx(nullptr), loadCtx(nullptr), saveCtx(nullptr), endRoundCtx(nullptr), about(nullptr), fileString(fileString)
 {
 }
 
 GameField::~GameField()
 {
-    if(this->widgetStack != NULL) {
+    if(this->widgetStack != nullptr) {
         this->widgetStack->removeWidget(this->window);
     }
 
-    if(this->randomCtx != NULL)
+    if(this->randomCtx != nullptr)
         delete this->randomCtx;
-    if(this->editorCtx != NULL)
+    if(this->editorCtx != nullptr)
         delete this->editorCtx;
-    if(this->loadCtx != NULL)
+    if(this->loadCtx != nullptr)
         delete this->loadCtx;
-    if(this->saveCtx != NULL)
+    if(this->saveCtx != nullptr)
         delete this->saveCtx;
-    if(this->endRoundCtx != NULL)
+    if(this->endRoundCtx != nullptr)
         delete this->endRoundCtx;
-    if(this->podium != NULL)
+    if(this->podium != nullptr)
         delete this->podium;
-    if(this->about != NULL)
+    if(this->about != nullptr)
         delete this->about;
 
     delete this->categoryLabelGrid;
@@ -686,7 +688,7 @@ void GameField::openEditor()
 
 int GameField::random()
 {
-    srand(time(NULL));
+    srand(time(nullptr));
 
     int rn = rand() % this->playerNr;
 
@@ -777,6 +779,10 @@ bool GameField::eventFilter(QObject *target, QEvent *event)
     if(target == this->window && event->type() == QEvent::KeyPress)
     {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+
+        if(keyEvent->key() == Qt::Key_F10) {
+            QApplication::quit();
+        }
 
         /* Open random user picker if "r" gets pressed */
         if(keyEvent->key() == Qt::Key_R)

@@ -33,33 +33,33 @@ Jeopardy::Jeopardy(bool needSound, bool fullscreen, QWidget *parent) :
     QMainWindow(parent),
     sound(needSound),
     fullscreen(fullscreen),
-    widgetStack(NULL),
-    gameField(NULL)
+    widgetStack(nullptr),
+    gameField(nullptr)
 {
     this->players = new Player[NUMBER_MAX_PLAYERS];
 }
 
 Jeopardy::~Jeopardy()
 {
-    if(this->players != NULL) {
+    if(this->players != nullptr) {
         delete [] this->players;
-        this->players = NULL;
+        this->players = nullptr;
     }
 
-    if(this->gameField != NULL)
+    if(this->gameField != nullptr)
     {
         delete this->gameField;
-        this->gameField = NULL;
+        this->gameField = nullptr;
     }
 
-    if(this->window != NULL) {
+    if(this->window != nullptr) {
         delete this->window;
-        this->window = NULL;
+        this->window = nullptr;
     }
 
-    if(this->widgetStack != NULL) {
+    if(this->widgetStack != nullptr) {
         delete this->widgetStack;
-        this->widgetStack = NULL;
+        this->widgetStack = nullptr;
     }
 }
 

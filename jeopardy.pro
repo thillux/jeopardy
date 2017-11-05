@@ -15,15 +15,13 @@ SOURCES += main.cpp \
     gamefield.cpp \
     answer.cpp \
     editor.cpp \
-    podium.cpp \
-    doublejeopardy.cpp
+    podium.cpp
 HEADERS += jeopardy.h \
     player.h \
     gamefield.h \
     answer.h \
     editor.h \
-    podium.h \
-    doublejeopardy.h
+    podium.h
 FORMS += answer.ui
 CONFIG += c++14
 RESOURCES = jeopardy.qrc

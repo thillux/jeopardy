@@ -38,8 +38,9 @@
 #include <QTime>
 #include <QGraphicsScene>
 #include <QMediaPlayer>
-#include <doublejeopardy.h>
 #include <QStackedWidget>
+#include <QDialog>
+#include "player.h"
 
 #define NUMBER_MAX_PLAYERS 9
 #define NUMBER_MAX_CATEGORIES 6
@@ -79,18 +80,14 @@ private:
     bool keyLock;
     bool isVideo;
     bool sound;
-    bool doubleJeopardy;
     bool fullscreen;
     QStackedWidget* widgetStack;
     QString result;
     QString fileString;
-    QTime *time;
-    QTimer *timer;
     Player *players;
     Player currentPlayer;
     QMediaPlayer *music;
     QMediaPlayer *video;
-    DoubleJeopardy *dj;
 
     void keyPressEvent(QKeyEvent *event);
     void processKeypress(int player);
@@ -105,14 +102,12 @@ private:
     QFont measureFontSize(int count);
 
     bool getAnswer(int category, int points, QString *answer);
-    void openDoubleJeopardy();
     int getCategoryLine(int category);
 
     void processText(QString *answer);
     void processImg(QString *answer);
     void processSound(QString *answer);
     void processVideo(QString *answer);
-    void processDoubleJeopardy(QString *answer);
     void processAlign(QString *answer);
 
     void prependDir(QString *answer);

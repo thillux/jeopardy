@@ -28,6 +28,7 @@
 
 #include "answer.h"
 #include "ui_answer.h"
+#include <QMessageBox>
 
 void Answer::changeEvent(QEvent *e)
 {
@@ -43,7 +44,7 @@ void Answer::changeEvent(QEvent *e)
 
 Answer::Answer(QWidget *parent, QStackedWidget* widgetStack, QString file, int round, Player *players, int playerNr, bool sound, int currentPlayerId, bool fullscreen) :
         QDialog(parent), ui(new Ui::Answer), round(round), playerNr(playerNr),points(0), currentPlayerId(currentPlayerId),
-        winner(NO_WINNER), keyLock(false), sound(sound), doubleJeopardy(false), fullscreen(fullscreen), widgetStack(widgetStack), result(), fileString(file), players(players), currentPlayer(), dj(NULL)
+        winner(NO_WINNER), keyLock(false), sound(sound), fullscreen(fullscreen), widgetStack(widgetStack), result(), fileString(file), players(players), currentPlayer()
 {
     ui->setupUi(this);
 
@@ -51,15 +52,6 @@ Answer::Answer(QWidget *parent, QStackedWidget* widgetStack, QString file, int r
         widgetStack->addWidget(this);
         widgetStack->setCurrentWidget(this);
     }
-
-    this->time = new QTime();
-    this->time->start();
-    /*
-    timer = new QTimer();
-    timer->setInterval(1*1000);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateTime()));
-    timer->start();
-    */
 
     this->hideButtons();
     ui->graphicsView->setVisible(false);
@@ -80,23 +72,6 @@ Answer::~Answer()
     delete ui;
     delete this->music;
     delete this->video;
-
-    if(this->dj != NULL)
-        delete this->dj;
-
-    delete this->time;
-    if(timer != NULL) {
-        delete timer;
-    }
-}
-
-void Answer::updateTime()
-{
-    int seconds = 31 - this->time->elapsed() / 1000;
-    if(seconds >= 0)
-        ui->time->setText(QString("%1").arg(seconds, 2));
-    else
-        ui->time->setText(QString("Ended..."));
 }
 
 int Answer::getWinner()
@@ -148,9 +123,6 @@ void Answer::setAnswer(int category, int points)
         ui->answer->setTextFormat(Qt::PlainText);
     }
 
-    if(answer.contains(doubleJeopardyTag))
-        this->processDoubleJeopardy(&answer);
-
     if(answer.contains(imgTag))
     {
         if(this->sound)
@@ -186,13 +158,6 @@ void Answer::processAlign(QString *answer)
     QRegExp alignLeftTag("[[]l[]]");
     answer->remove(alignLeftTag);
     ui->answer->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-}
-
-void Answer::processDoubleJeopardy(QString *answer)
-{
-    QRegExp doubleJeopardyTag("[[]dj[]]");
-    answer->remove(doubleJeopardyTag);
-    this->openDoubleJeopardy();
 }
 
 void Answer::processImg(QString *answer)
@@ -270,8 +235,6 @@ void Answer::keyPressEvent(QKeyEvent *event)
             QTimer::singleShot(100, this->music, SLOT(play()));
             QTimer::singleShot(30000, this->music, SLOT(stop()));
         }
-
-        this->time->start();
     }
 
     if(event->key() == Qt::Key_Escape)
@@ -406,19 +369,6 @@ bool Answer::getAnswer(int category, int points, QString *answer)
     return true;
 }
 
-void Answer::openDoubleJeopardy()
-{
-    this->lockKeyListener();
-    this->dj = new DoubleJeopardy(this, points / 2, points * 2, this->players, this->playerNr, this->currentPlayerId);
-    dj->init();
-    dj->show();
-    this->currentPlayerId = dj->getPlayer();
-    this->points = dj->getPoints();
-    this->doubleJeopardy = true;
-
-    this->processKeypress(this->currentPlayerId);
-}
-
 void Answer::on_buttonEnd_clicked()
 {
     this->releaseKeyListener();
@@ -459,13 +409,6 @@ void Answer::on_buttonWrong_clicked()
     this->result.append(resultTmp);
     this->hideButtons();
     this->releaseKeyListener();
-    if(this->doubleJeopardy)
-    {
-        if(this->sound)
-            this->music->stop();
-        this->winner = NO_WINNER;
-        done(0);
-    }
 }
 
 void Answer::on_buttonCancel_clicked()

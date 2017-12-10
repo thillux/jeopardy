@@ -23,5 +23,5 @@ HEADERS += jeopardy.h \
     editor.h \
     podium.h
 FORMS += answer.ui
-CONFIG += c++14
+# CONFIG += c++11
 RESOURCES = jeopardy.qrc

@@ -117,7 +117,6 @@ private slots:
     void on_buttonWrong_clicked();
     void on_buttonRight_clicked();
     void on_buttonEnd_clicked();
-    void updateTime();
 };
 
 #endif // ANSWER_H
